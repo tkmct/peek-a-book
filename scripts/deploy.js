@@ -1,4 +1,5 @@
 const hre = require("hardhat")
+const fs = require("fs")
 
 async function main() {
   const PeekABook = await hre.ethers.getContractFactory("PeekABook")
@@ -7,6 +8,12 @@ async function main() {
   await instance.deployed()
 
   console.log("PeekABook deployed to:", instance.address)
+  fs.writeFileSync(
+    "./address.json",
+    JSON.stringify({
+      PeekABook: instance.address,
+    })
+  )
 }
 
 main()
